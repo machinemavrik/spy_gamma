@@ -7,7 +7,7 @@ from datetime import timedelta, date
 import datetime
 from itertools import *
 
-df = pd.read_csv('SPY-03-03', sep='\s+', header=None, skiprows=0)
+df = pd.read_csv('SPY-03-03', sep=',', header=None, skiprows=0)
 
 df.columns = ['1stCol']
 
