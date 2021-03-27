@@ -1,4 +1,3 @@
-Total Gamma Exposure(GEX).py
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,7 +5,7 @@ import scipy
 import seaborn as sns
 from datetime import timedelta, date
 import datetime
-from itertools import 
+from itertools import *
 
 df = pd.read_csv('SPY-03-03', sep='\s+', header=None, skiprows=0)
 
