@@ -7,17 +7,25 @@ from datetime import timedelta, date
 import datetime
 from itertools import *
 
-df = pd.read_csv('SPY_04_21', sep=',', header=None, skiprows=0)
+df_spot = pd.read_csv('*INSERT FILE PATH HERE C:\\ to the file path', sep=',', header=None, skiprows=[0,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,2], error_bad_lines=False)
+print(df_spot.to_string())
+df_spot.columns = ['one','two','three']
+spot_price = df_spot['two'][0].split('Last: ')[1]
+spot_price = float(spot_price)
+print(spot_price)
 
-df.columns = ['1stCol']
 
-spot_price = df['1stCol'][0].split(',')[1]
-spot_price = float(spot_price.split('Last:')[1])
+df = pd.read_csv('*INSERT FILE PATH HERE C:\\ to the file path', sep=',', header=None, skiprows=4, error_bad_lines=False)
+#print(df.to_string())
+df.columns = ['ExpirationDate','Calls','CallLastSale','CallNet','CallBid','CallAsk','CallVol','CallIV','CallDelta','CallGamma','CallOpenInt','CallStrike','Puts','PutLastSale','PutNet','PutBid','PutAsk','PutVol','PutIV','PutDelta','PutGamma','PutOpenInt']
+selected_columns =  df[["ExpirationDate","Calls","CallLastSale","CallNet","CallBid","CallAsk","CallVol","CallIV","CallDelta","CallGamma","CallOpenInt","CallStrike","Puts","PutLastSale","PutNet","PutBid","PutAsk","PutVol","PutIV","PutDelta","PutGamma","PutOpenInt"]]
 
-df = df.iloc[3:]
+#spot_price = 395.94
 
-new = df["1stCol"].str.split(",", n = 21, expand = True)
-new.columns = ['ExpirationDate','Calls','CallLastSale','CallNet','CallBid','CallAsk','CallVol','CallIV','CallDelta','CallGamma','CallOpenInt','CallStrike','Puts','PutLastSale','PutNet','PutBid','PutAsk','PutVol','PutIV','PutDelta','PutGamma','PutOpenInt']
+#df = df.iloc[3:]
+new = selected_columns.copy()
+#new = df["1stCol"].str.split(",", n = 21, expand = True)
+#new.columns = ['ExpirationDate','Calls','CallLastSale','CallNet','CallBid','CallAsk','CallVol','CallIV','CallDelta','CallGamma','CallOpenInt','CallStrike','Puts','PutLastSale','PutNet','PutBid','PutAsk','PutVol','PutIV','PutDelta','PutGamma','PutOpenInt']
 
 callStrike = [x[-6:-3] for x in new.Calls]
 new['StrikePrice'] = callStrike 
